@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>20-Second Eye Rest Tracker</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f8fafc;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      line-height: 1.5;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+      padding: 26px 24px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 9999px;
+      margin-bottom: 8px;
+    }
+
+    .badge-active {
+      background-color: #f0fdfa;
+      color: #0f766e;
+    }
+
+    .badge-inactive {
+      background-color: #f1f5f9;
+      color: #475569;
+    }
+
+    .title {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.25;
+    }
+
+    .subtitle {
+      margin: 4px 0 0;
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .alert-banner {
+      margin-bottom: 14px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background-color: #fffbeb;
+      border: 1px solid #fde68a;
+      color: #78350f;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .timer-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 12px 0;
+    }
+
+    .ring-wrap {
+      position: relative;
+      width: 176px;
+      height: 176px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ring-svg {
+      width: 176px;
+      height: 176px;
+      display: block;
+    }
+
+    .progress-ring-circle {
+      transition: stroke-dashoffset 0.35s linear;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+
+    .ring-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .timer-display {
+      font-size: 34px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: #0f172a;
+      line-height: 1.1;
+    }
+
+    .timer-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #64748b;
+      margin-top: 4px;
+    }
+
+    .btn-row {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 11px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.15s ease, transform 0.05s ease;
+      font-family: inherit;
+    }
+
+    .btn:active {
+      transform: scale(0.99);
+    }
+
+    .btn-primary {
+      flex: 1;
+      background-color: #0d9488;
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: #0f766e;
+    }
+
+    .btn-dark {
+      flex: 1;
+      background-color: #1e293b;
+      color: #ffffff;
+    }
+
+    .btn-dark:hover {
+      background-color: #0f172a;
+    }
+
+    .btn-mute {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      color: #475569;
+      padding: 10px 13px;
+      font-size: 14px;
+    }
+
+    .btn-mute:hover {
+      background-color: #f1f5f9;
+    }
+
+    .progress-box {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 18px;
+    }
+
+    .progress-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+
+    .progress-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .progress-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .streak-badge {
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 9999px;
+      background-color: #ccfbf1;
+      color: #115e59;
+    }
+
+    .count-text {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0f766e;
+    }
+
+    .bar-track {
+      width: 100%;
+      height: 10px;
+      background-color: #e2e8f0;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      background-color: #0d9488;
+      border-radius: 9999px;
+      transition: width 0.3s ease;
+    }
+
+    .progress-footer {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .link-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: #64748b;
+      text-decoration: underline;
+      cursor: pointer;
+      flex-shrink: 0;
+      font-family: inherit;
+    }
+
+    .link-btn:hover {
+      color: #0f172a;
+    }
+
+    .alerts-box {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      background-color: #ffffff;
+    }
+
+    .alerts-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .alerts-title {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .alerts-desc {
+      margin: 2px 0 0;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .btn-ics {
+      flex-shrink: 0;
+      padding: 7px 12px;
+      border-radius: 8px;
+      background-color: #f0fdfa;
+      color: #115e59;
+      border: 1px solid #99f6e4;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .btn-ics:hover {
+      background-color: #ccfbf1;
+    }
+
+    .alerts-bottom {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .link-btn-teal {
+      color: #0f766e;
+    }
+
+    .link-btn-teal:hover {
+      color: #134e4a;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <!-- 1. HEADER & SCHEDULE BADGE -->
+    <header class="header">
+      <span id="scheduleBadge" class="badge badge-active">
+        Mon–Fri • 9:00 AM – 6:00 PM
+      </span>
+      <h1 class="title">20-Second Eye Rest</h1>
+      <p class="subtitle">
+        Close your eyes for 20 seconds every 30 minutes.
+      </p>
+    </header>
+
+    <!-- IN-PAGE ALERT BANNER -->
+    <div id="alertBanner" class="alert-banner hidden">
+      Time's up! Close your eyes for 20 seconds now.
+    </div>
+
+    <!-- 2. TIMER CIRCLE & CONTROLS -->
+    <section class="timer-section">
+      <div class="ring-wrap">
+        <svg class="ring-svg" viewBox="0 0 120 120" width="176" height="176" aria-hidden="true">
+          <circle
+            cx="60"
+            cy="60"
+            r="52"
+            fill="none"
+            stroke="#e2e8f0"
+            stroke-width="8"
+          />
+          <circle
+            id="progressRing"
+            class="progress-ring-circle"
+            cx="60"
+            cy="60"
+            r="52"
+            fill="none"
+            stroke="#0d9488"
+            stroke-width="8"
+            stroke-linecap="round"
+            stroke-dasharray="326.73"
+            stroke-dashoffset="0"
+          />
+        </svg>
+        <div class="ring-center">
+          <span id="timerDisplay" class="timer-display">20s</span>
+          <span id="timerLabel" class="timer-label">Ready to rest</span>
+        </div>
+      </div>
+
+      <!-- Primary Action Buttons -->
+      <div class="btn-row">
+        <button id="startBtn" type="button" class="btn btn-primary">
+          Start 20s Eye Rest
+        </button>
+        <button id="workBtn" type="button" class="btn btn-dark">
+          Start 30m Work
+        </button>
+        <button
+          id="muteBtn"
+          type="button"
+          aria-label="Toggle chime sound"
+          class="btn btn-mute"
+          title="Toggle sound"
+        >
+          🔔
+        </button>
+      </div>
+    </section>
+
+    <!-- 3. DAILY PROGRESS & STREAK TRACKER -->
+    <section class="progress-box">
+      <div class="progress-top">
+        <div class="progress-title-wrap">
+          <span class="progress-title">Today's Eye Breaks</span>
+          <span id="streakBadge" class="streak-badge">0d streak</span>
+        </div>
+        <span id="countText" class="count-text">0 / 18</span>
+      </div>
+      <div class="bar-track">
+        <div id="goalBar" class="bar-fill"></div>
+      </div>
+      <div class="progress-footer">
+        <span id="statusMessage">Complete a 20s rest to log your first break.</span>
+        <button id="resetBtn" type="button" class="link-btn">Reset</button>
+      </div>
+    </section>
+
+    <!-- 4. IPHONE & EDGE ALERTS -->
+    <section class="alerts-box">
+      <div class="alerts-top">
+        <div>
+          <h2 class="alerts-title">iPhone Mon–Fri Alerts</h2>
+          <p class="alerts-desc">
+            Add 18 recurring 30-min reminders (9 AM–6 PM) to Apple Calendar.
+          </p>
+        </div>
+        <button id="downloadIcsBtn" type="button" class="btn-ics">
+          Get .ics
+        </button>
+      </div>
+      <div class="alerts-bottom">
+        <span id="notifyStatus">Edge / desktop alerts: off</span>
+        <button id="notifyBtn" type="button" class="link-btn link-btn-teal">
+          Enable Browser Alerts
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- 5. INTERACTIVITY & STORAGE (JAVASCRIPT) -->
+  <script>
+    const REST_SECONDS = 20;
+    const WORK_SECONDS = 30 * 60;
+    const DAILY_GOAL = 18;
+    const RING_CIRCUMFERENCE = 2 * Math.PI * 52;
+    const STORAGE_KEY = 'eye_rest_tracker_v1';
+    const DEFAULT_TITLE = '20-Second Eye Rest Tracker';
+
+    let mode = 'rest';
+    let totalSeconds = REST_SECONDS;
+    let timeLeft = REST_SECONDS;
+    let timerId = null;
+    let completedBreaks = 0;
+    let streakDays = 0;
+    let lastActiveDate = '';
+    let isMuted = false;
+
+    const scheduleBadge = document.getElementById('scheduleBadge');
+    const alertBanner = document.getElementById('alertBanner');
+    const timerDisplay = document.getElementById('timerDisplay');
+    const timerLabel = document.getElementById('timerLabel');
+    const progressRing = document.getElementById('progressRing');
+    const startBtn = document.getElementById('startBtn');
+    const workBtn = document.getElementById('workBtn');
+    const muteBtn = document.getElementById('muteBtn');
+    const streakBadge = document.getElementById('streakBadge');
+    const countText = document.getElementById('countText');
+    const goalBar = document.getElementById('goalBar');
+    const statusMessage = document.getElementById('statusMessage');
+    const resetBtn = document.getElementById('resetBtn');
+    const downloadIcsBtn = document.getElementById('downloadIcsBtn');
+    const notifyBtn = document.getElementById('notifyBtn');
+    const notifyStatus = document.getElementById('notifyStatus');
+
+    function getTodayKey() {
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({ completedBreaks, streakDays, lastActiveDate, isMuted })
+        );
+      } catch (e) {}
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        const today = getTodayKey();
+        isMuted = Boolean(data.isMuted);
+        streakDays = Number(data.streakDays) || 0;
+        lastActiveDate = data.lastActiveDate || '';
+        completedBreaks = lastActiveDate === today ? Number(data.completedBreaks) || 0 : 0;
+      } catch (e) {}
+    }
+
+    function formatTime(secs) {
+      if (mode === 'rest') return secs + 's';
+      const m = Math.floor(secs / 60);
+      const s = secs % 60;
+      return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    }
+
+    function updateScheduleBadge() {
+      const now = new Date();
+      const day = now.getDay();
+      const hour = now.getHours();
+      const isWorkDay = day >= 1 && day <= 5;
+      const isWorkHour = hour >= 9 && hour < 18;
+
+      if (isWorkDay && isWorkHour) {
+        scheduleBadge.textContent = 'Active Work Hours • Mon–Fri 9–6';
+        scheduleBadge.className = 'badge badge-active';
+      } else {
+        scheduleBadge.textContent = 'Outside Work Hours • Mon–Fri 9–6';
+        scheduleBadge.className = 'badge badge-inactive';
+      }
+    }
+
+    function playGentleChime() {
+      if (isMuted) return;
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(528, ctx.currentTime);
+        gain.gain.setValueAtTime(0.15, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.8);
+      } catch (e) {}
+    }
+
+    function sendBrowserNotification(title, body) {
+      try {
+        if ('Notification' in window && Notification.permission === 'granted') {
+          new Notification(title, { body });
+        }
+      } catch (e) {}
+    }
+
+    function render() {
+      const formatted = formatTime(timeLeft);
+      timerDisplay.textContent = formatted;
+
+      if (timerId !== null) {
+        document.title =
+          mode === 'work' ? `${formatted} • Work — Eye Rest` : `${formatted} • Close Eyes!`;
+      } else {
+        document.title = DEFAULT_TITLE;
+      }
+
+      const progress = totalSeconds > 0 ? (totalSeconds - timeLeft) / totalSeconds : 0;
+      progressRing.style.strokeDashoffset = RING_CIRCUMFERENCE * progress;
+      progressRing.setAttribute('stroke', mode === 'work' ? '#1e293b' : '#0d9488');
+
+      countText.textContent = completedBreaks + ' / ' + DAILY_GOAL;
+      streakBadge.textContent = streakDays + 'd streak';
+      const pct = Math.min(100, Math.round((completedBreaks / DAILY_GOAL) * 100));
+      goalBar.style.width = pct + '%';
+
+      muteBtn.textContent = isMuted ? '🔇' : '🔔';
+
+      try {
+        if ('Notification' in window) {
+          if (Notification.permission === 'granted') {
+            notifyStatus.textContent = 'Edge / desktop alerts: enabled';
+          } else if (Notification.permission === 'denied') {
+            notifyStatus.textContent = 'Edge / desktop alerts: blocked';
+          } else {
+            notifyStatus.textContent = 'Edge / desktop alerts: off';
+          }
+        }
+      } catch (e) {
+        notifyStatus.textContent = 'Edge / desktop alerts: unavailable';
+      }
+    }
+
+    function stopTimer() {
+      if (timerId !== null) {
+        clearInterval(timerId);
+        timerId = null;
+      }
+      startBtn.textContent = 'Start 20s Eye Rest';
+      workBtn.textContent = 'Start 30m Work';
+    }
+
+    function recordBreak() {
+      const today = getTodayKey();
+      if (lastActiveDate !== today) {
+        streakDays += 1;
+        lastActiveDate = today;
+      }
+      completedBreaks += 1;
+      saveState();
+    }
+
+    function toggleRestTimer() {
+      alertBanner.classList.add('hidden');
+      if (timerId !== null && mode === 'rest') {
+        stopTimer();
+        timeLeft = REST_SECONDS;
+        totalSeconds = REST_SECONDS;
+        timerLabel.textContent = 'Ready to rest';
+        render();
+        return;
+      }
+
+      stopTimer();
+      mode = 'rest';
+      totalSeconds = REST_SECONDS;
+      timeLeft = REST_SECONDS;
+      startBtn.textContent = 'Cancel Rest';
+      timerLabel.textContent = 'Close your eyes...';
+      render();
+
+      timerId = setInterval(() => {
+        timeLeft -= 1;
+        if (timeLeft <= 0) {
+          stopTimer();
+          recordBreak();
+          timeLeft = REST_SECONDS;
+          timerLabel.textContent = 'Nice! Eyes rested';
+          statusMessage.textContent =
+            completedBreaks >= DAILY_GOAL
+              ? 'Daily goal reached! Great job caring for your eyes.'
+              : 'Logged break #' + completedBreaks + '. Start 30m work when ready!';
+          playGentleChime();
+          render();
+          return;
+        }
+        render();
+      }, 1000);
+    }
+
+    function toggleWorkTimer() {
+      alertBanner.classList.add('hidden');
+      if (timerId !== null && mode === 'work') {
+        stopTimer();
+        mode = 'rest';
+        totalSeconds = REST_SECONDS;
+        timeLeft = REST_SECONDS;
+        timerLabel.textContent = 'Ready to rest';
+        render();
+        return;
+      }
+
+      stopTimer();
+      mode = 'work';
+      totalSeconds = WORK_SECONDS;
+      timeLeft = WORK_SECONDS;
+      workBtn.textContent = 'Cancel Work';
+      timerLabel.textContent = 'Work focus (30m)';
+      render();
+
+      timerId = setInterval(() => {
+        timeLeft -= 1;
+        if (timeLeft <= 0) {
+          stopTimer();
+          mode = 'rest';
+          totalSeconds = REST_SECONDS;
+          timeLeft = REST_SECONDS;
+          timerLabel.textContent = 'Time for 20s rest!';
+          alertBanner.classList.remove('hidden');
+          playGentleChime();
+          sendBrowserNotification(
+            '20-Second Eye Rest',
+            '30 minutes are up—close your eyes for 20 seconds.'
+          );
+          render();
+          return;
+        }
+        render();
+      }, 1000);
+    }
+
+    function downloadIphoneCalendar() {
+      const now = new Date();
+      const start = new Date(now);
+      const day = start.getDay();
+      if (day === 6) start.setDate(start.getDate() + 2);
+      if (day === 0) start.setDate(start.getDate() + 1);
+
+      const yyyy = start.getFullYear();
+      const mm = String(start.getMonth() + 1).padStart(2, '0');
+      const dd = String(start.getDate()).padStart(2, '0');
+      const dateStr = `${yyyy}${mm}${dd}`;
+
+      const lines = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//EyeRestTracker//EN',
+        'CALSCALE:GREGORIAN',
+      ];
+
+      for (let i = 0; i < 18; i++) {
+        const totalMins = 9 * 60 + 30 + i * 30;
+        const hh = String(Math.floor(totalMins / 60)).padStart(2, '0');
+        const min = String(totalMins % 60).padStart(2, '0');
+        const endMins = totalMins + 1;
+        const endHh = String(Math.floor(endMins / 60)).padStart(2, '0');
+        const endMin = String(endMins % 60).padStart(2, '0');
+
+        lines.push(
+          'BEGIN:VEVENT',
+          `UID:eye-rest-${i}@eyetracker.local`,
+          `DTSTART:${dateStr}T${hh}${min}00`,
+          `DTEND:${dateStr}T${endHh}${endMin}00`,
+          'RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR',
+          'SUMMARY:Close eyes for 20 seconds',
+          'DESCRIPTION:ENT eye rest reminder (every 30 mins, Mon-Fri 9 AM - 6 PM).',
+          'BEGIN:VALARM',
+          'TRIGGER:PT0M',
+          'ACTION:DISPLAY',
+          'DESCRIPTION:Close your eyes for 20 seconds',
+          'END:VALARM',
+          'END:VEVENT'
+        );
+      }
+
+      lines.push('END:VCALENDAR');
+      const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'eye-rest-mon-fri.ics';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      statusMessage.textContent = 'Downloaded eye-rest-mon-fri.ics — open it on iPhone to add alerts!';
+    }
+
+    startBtn.addEventListener('click', toggleRestTimer);
+    workBtn.addEventListener('click', toggleWorkTimer);
+
+    muteBtn.addEventListener('click', () => {
+      isMuted = !isMuted;
+      saveState();
+      render();
+    });
+
+    resetBtn.addEventListener('click', () => {
+      stopTimer();
+      alertBanner.classList.add('hidden');
+      mode = 'rest';
+      totalSeconds = REST_SECONDS;
+      timeLeft = REST_SECONDS;
+      completedBreaks = 0;
+      saveState();
+      timerLabel.textContent = 'Ready to rest';
+      statusMessage.textContent = 'Complete a 20s rest to log your first break.';
+      render();
+    });
+
+    downloadIcsBtn.addEventListener('click', downloadIphoneCalendar);
+
+    notifyBtn.addEventListener('click', () => {
+      try {
+        if ('Notification' in window && Notification.permission !== 'granted') {
+          Notification.requestPermission().then(() => render());
+        } else {
+          render();
+        }
+      } catch (e) {
+        notifyStatus.textContent = 'Edge / desktop alerts: unavailable';
+      }
+    });
+
+    loadState();
+    updateScheduleBadge();
+    setInterval(updateScheduleBadge, 60000);
+    render();
+  </script>
+</body>
+</html>
