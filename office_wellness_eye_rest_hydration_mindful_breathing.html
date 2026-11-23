@@ -1,0 +1,2632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Office Wellness — Eye Rest, Hydration &amp; Mindful Breathing</title>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --card-sub: #f8fafc;
+      --text: #0f172a;
+      --text-secondary: #475569;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --input-bg: #ffffff;
+      --shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+
+      /* Eye Rest (Teal) */
+      --teal: #0d9488;
+      --teal-hover: #0f766e;
+      --teal-soft: #f0fdfa;
+      --teal-badge-bg: #ccfbf1;
+      --teal-badge-text: #115e59;
+
+      /* Hydration (Light Blue) */
+      --blue: #0284c7;
+      --blue-hover: #0369a1;
+      --blue-light: #38bdf8;
+      --blue-soft: #f0f9ff;
+      --blue-border: #bae6fd;
+      --blue-text: #0c4a6e;
+
+      /* Breathing (Soft Blue-Green) */
+      --calm-grad: linear-gradient(135deg, #ecfeff 0%, #f0fdf4 100%);
+      --calm-accent: #059669;
+      --calm-accent-hover: #047857;
+      --calm-soft: #ecfdf5;
+      --calm-border: #a7f3d0;
+      --calm-text: #065f46;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --card-sub: #0f172a;
+      --text: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --muted: #94a3b8;
+      --border: #334155;
+      --input-bg: #0f172a;
+      --shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+
+      --teal-soft: rgba(13, 148, 136, 0.16);
+      --teal-badge-bg: rgba(20, 184, 166, 0.2);
+      --teal-badge-text: #5eead4;
+
+      --blue-soft: rgba(2, 132, 199, 0.16);
+      --blue-border: rgba(56, 189, 248, 0.35);
+      --blue-text: #7dd3fc;
+
+      --calm-grad: linear-gradient(135deg, rgba(6, 78, 59, 0.28) 0%, rgba(14, 116, 144, 0.24) 100%);
+      --calm-soft: rgba(5, 150, 105, 0.16);
+      --calm-border: rgba(52, 211, 153, 0.35);
+      --calm-text: #6ee7b7;
+    }
+
+    @media (prefers-contrast: more) {
+      :root {
+        --border: #64748b;
+        --muted: #334155;
+      }
+      [data-theme="dark"] {
+        --border: #94a3b8;
+        --muted: #e2e8f0;
+      }
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 20px 16px 36px;
+      line-height: 1.5;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    button:focus-visible, input:focus-visible, select:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 2px;
+    }
+
+    .shell {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    /* Top Bar */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .brand-sub {
+      margin: 2px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .theme-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 13px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background-color: var(--card);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .theme-btn:hover {
+      border-color: var(--blue);
+    }
+
+    /* Responsive Three-Card Dashboard */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 20px;
+      align-items: start;
+    }
+
+    .card {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 24px 22px;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card-calm {
+      background: var(--card);
+      border-color: var(--calm-border);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 9999px;
+      margin-bottom: 8px;
+    }
+
+    .badge-active {
+      background-color: var(--teal-soft);
+      color: var(--teal);
+    }
+
+    .badge-inactive {
+      background-color: var(--card-sub);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .badge-blue {
+      background-color: var(--blue-soft);
+      color: var(--blue);
+      border: 1px solid var(--blue-border);
+    }
+
+    .badge-calm {
+      background-color: var(--calm-soft);
+      color: var(--calm-text);
+      border: 1px solid var(--calm-border);
+    }
+
+    .title {
+      margin: 0;
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.25;
+    }
+
+    .subtitle {
+      margin: 4px 0 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .alert-banner {
+      margin-bottom: 14px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background-color: #fffbeb;
+      border: 1px solid #fde68a;
+      color: #78350f;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .alert-banner-blue {
+      margin-bottom: 14px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background-color: var(--blue-soft);
+      border: 1px solid var(--blue-border);
+      color: var(--blue-text);
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .alert-banner-calm {
+      margin-bottom: 14px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background-color: var(--calm-soft);
+      border: 1px solid var(--calm-border);
+      color: var(--calm-text);
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Eye Rest Ring */
+    .timer-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 10px 0;
+    }
+
+    .ring-wrap {
+      position: relative;
+      width: 176px;
+      height: 176px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ring-svg {
+      width: 176px;
+      height: 176px;
+      display: block;
+    }
+
+    .progress-ring-circle {
+      transition: stroke-dashoffset 0.35s linear;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+
+    .ring-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .timer-display {
+      font-size: 34px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--text);
+      line-height: 1.1;
+    }
+
+    .timer-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .btn-row {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 11px;
+      padding: 10px 13px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.15s ease, transform 0.05s ease;
+      font-family: inherit;
+    }
+
+    .btn:active {
+      transform: scale(0.99);
+    }
+
+    .btn-primary {
+      flex: 1;
+      background-color: var(--teal);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--teal-hover);
+    }
+
+    .btn-dark {
+      flex: 1;
+      background-color: #1e293b;
+      color: #ffffff;
+    }
+
+    [data-theme="dark"] .btn-dark {
+      background-color: #334155;
+    }
+
+    .btn-dark:hover {
+      background-color: #0f172a;
+    }
+
+    .btn-blue {
+      background-color: var(--blue);
+      color: #ffffff;
+    }
+
+    .btn-blue:hover {
+      background-color: var(--blue-hover);
+    }
+
+    .btn-blue-soft {
+      background-color: var(--blue-soft);
+      color: var(--blue-text);
+      border: 1px solid var(--blue-border);
+    }
+
+    .btn-calm {
+      flex: 1;
+      background-color: var(--calm-accent);
+      color: #ffffff;
+    }
+
+    .btn-calm:hover {
+      background-color: var(--calm-accent-hover);
+    }
+
+    .btn-calm-soft {
+      background-color: var(--calm-soft);
+      color: var(--calm-text);
+      border: 1px solid var(--calm-border);
+    }
+
+    .btn-mute {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 10px 13px;
+      font-size: 14px;
+    }
+
+    .btn-mute:hover {
+      background-color: var(--card-sub);
+    }
+
+    .progress-box {
+      background-color: var(--card-sub);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 16px;
+    }
+
+    .progress-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+
+    .progress-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .progress-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .streak-badge {
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 9999px;
+      background-color: var(--teal-badge-bg);
+      color: var(--teal-badge-text);
+    }
+
+    .streak-badge-blue {
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 9999px;
+      background-color: var(--blue-soft);
+      color: var(--blue-text);
+      border: 1px solid var(--blue-border);
+    }
+
+    .count-text {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--teal);
+    }
+
+    .bar-track {
+      width: 100%;
+      height: 10px;
+      background-color: var(--border);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--teal);
+      border-radius: 9999px;
+      transition: width 0.3s ease;
+    }
+
+    .bar-fill-blue {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #38bdf8, #0284c7);
+      border-radius: 9999px;
+      transition: width 0.35s ease;
+    }
+
+    .progress-footer {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .link-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: underline;
+      cursor: pointer;
+      flex-shrink: 0;
+      font-family: inherit;
+    }
+
+    .link-btn:hover {
+      color: var(--text);
+    }
+
+    .link-btn-teal {
+      color: var(--teal);
+    }
+
+    .link-btn-blue {
+      color: var(--blue);
+    }
+
+    .link-btn-calm {
+      color: var(--calm-accent);
+    }
+
+    .alerts-box {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background-color: var(--card);
+    }
+
+    .alerts-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .alerts-title {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .alerts-desc {
+      margin: 2px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .btn-ics {
+      flex-shrink: 0;
+      padding: 7px 12px;
+      border-radius: 8px;
+      background-color: var(--teal-soft);
+      color: var(--teal-badge-text);
+      border: 1px solid var(--teal-badge-bg);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .alerts-bottom {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* Water Hydration Specific */
+    .water-hero {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin: 12px 0 16px;
+    }
+
+    .bottle-wrap {
+      flex-shrink: 0;
+      width: 92px;
+      height: 156px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stats-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .stat-tile {
+      background-color: var(--card-sub);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 10px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      display: block;
+    }
+
+    .stat-value {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .goal-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding: 9px 12px;
+      border-radius: 10px;
+      background-color: var(--blue-soft);
+      border: 1px solid var(--blue-border);
+      font-size: 12px;
+      color: var(--blue-text);
+      flex-wrap: wrap;
+    }
+
+    .goal-input-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .small-input {
+      width: 64px;
+      padding: 5px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background-color: var(--input-bg);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      font-family: inherit;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .custom-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .custom-input {
+      flex: 1;
+      padding: 9px 11px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background-color: var(--input-bg);
+      color: var(--text);
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .status-excellent {
+      background-color: #dcfce7;
+      color: #166534;
+    }
+
+    .status-good {
+      background-color: #e0f2fe;
+      color: #075985;
+    }
+
+    .status-needs {
+      background-color: #fef3c7;
+      color: #92400e;
+    }
+
+    .milestone-box {
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      background-color: var(--blue-soft);
+      border: 1px solid var(--blue-border);
+      color: var(--blue-text);
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .summary-box {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 12px;
+      background-color: var(--card-sub);
+      border: 1px solid var(--blue-border);
+    }
+
+    .summary-title {
+      margin: 0 0 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .chart-box {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 12px;
+      background-color: var(--card-sub);
+      border: 1px solid var(--border);
+    }
+
+    .chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 8px;
+    }
+
+    .chart-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .utility-row {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Deep Breathing Card Specific */
+    .calm-stage {
+      background: var(--calm-grad);
+      border: 1px solid var(--calm-border);
+      border-radius: 14px;
+      padding: 20px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+
+    .breath-circle-outer {
+      width: 152px;
+      height: 152px;
+      border-radius: 9999px;
+      background: radial-gradient(circle at 30% 30%, rgba(56, 189, 248, 0.25), rgba(16, 185, 129, 0.25));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .breath-circle {
+      width: 112px;
+      height: 112px;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, #0ea5e9, #10b981);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.28);
+      transform: scale(0.78);
+      transition-property: transform;
+      transition-timing-function: ease-in-out;
+    }
+
+    .breath-phase-text {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .breath-sec-text {
+      font-size: 22px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+      margin-top: 2px;
+    }
+
+    .breath-text-only-box {
+      padding: 18px 14px;
+      border-radius: 12px;
+      border: 2px solid var(--calm-accent);
+      background-color: var(--card);
+      width: 100%;
+    }
+
+    .cycle-pill {
+      margin-top: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--calm-text);
+    }
+
+    .quote-text {
+      margin: 8px 0 0;
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+
+    .config-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .config-cell {
+      background-color: var(--card-sub);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 6px 8px;
+      text-align: center;
+    }
+
+    .config-cell label {
+      display: block;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 3px;
+      text-transform: uppercase;
+    }
+
+    .config-cell input {
+      width: 100%;
+      text-align: center;
+      padding: 4px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background-color: var(--input-bg);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 700;
+      font-family: inherit;
+    }
+
+    .ambient-row {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 10px;
+      background-color: var(--card-sub);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      flex-wrap: wrap;
+    }
+
+    .select-control {
+      padding: 5px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background-color: var(--input-bg);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      font-family: inherit;
+    }
+
+    .toggles-row {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .check-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .badges-wrap {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .award-badge {
+      padding: 3px 9px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background-color: var(--card-sub);
+      color: var(--muted);
+      opacity: 0.65;
+    }
+
+    .award-badge.earned {
+      opacity: 1;
+      background-color: var(--calm-soft);
+      border-color: var(--calm-border);
+      color: var(--calm-text);
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div>
+        <h1 class="brand-title">Office Wellness Tracker</h1>
+        <p class="brand-sub">Eye rest, water hydration &amp; mindful breathing for your workday</p>
+      </div>
+      <button id="themeToggleBtn" type="button" class="theme-btn">
+        <span id="themeIcon">🌙</span>
+        <span id="themeText">Dark Mode</span>
+      </button>
+    </div>
+
+    <!-- THREE-CARD RESPONSIVE GRID -->
+    <div class="grid">
+      <!-- ========================================================= -->
+      <!-- CARD 1: 20-SECOND EYE REST TRACKER (9 AM – 6 PM)          -->
+      <!-- ========================================================= -->
+      <main class="card">
+        <header class="header">
+          <span id="scheduleBadge" class="badge badge-active">
+            Mon–Fri • 9:00 AM – 6:00 PM
+          </span>
+          <h2 class="title">20-Second Eye Rest</h2>
+          <p class="subtitle">
+            Close your eyes for 20 seconds every 30 minutes.
+          </p>
+        </header>
+
+        <div id="alertBanner" class="alert-banner hidden">
+          Time's up! Close your eyes for 20 seconds now.
+        </div>
+
+        <section class="timer-section">
+          <div class="ring-wrap">
+            <svg class="ring-svg" viewBox="0 0 120 120" width="176" height="176" aria-hidden="true">
+              <circle cx="60" cy="60" r="52" fill="none" stroke="#e2e8f0" stroke-width="8" />
+              <circle
+                id="progressRing"
+                class="progress-ring-circle"
+                cx="60"
+                cy="60"
+                r="52"
+                fill="none"
+                stroke="#0d9488"
+                stroke-width="8"
+                stroke-linecap="round"
+                stroke-dasharray="326.73"
+                stroke-dashoffset="0"
+              />
+            </svg>
+            <div class="ring-center">
+              <span id="timerDisplay" class="timer-display">20s</span>
+              <span id="timerLabel" class="timer-label">Ready to rest</span>
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <button id="startBtn" type="button" class="btn btn-primary">
+              Start 20s Eye Rest
+            </button>
+            <button id="workBtn" type="button" class="btn btn-dark">
+              Start 30m Work
+            </button>
+            <button
+              id="muteBtn"
+              type="button"
+              aria-label="Toggle chime sound"
+              class="btn btn-mute"
+              title="Toggle sound"
+            >
+              🔔
+            </button>
+          </div>
+        </section>
+
+        <section class="progress-box">
+          <div class="progress-top">
+            <div class="progress-title-wrap">
+              <span class="progress-title">Today's Eye Breaks</span>
+              <span id="streakBadge" class="streak-badge">0d streak</span>
+            </div>
+            <span id="countText" class="count-text">0 / 18</span>
+          </div>
+          <div class="bar-track">
+            <div id="goalBar" class="bar-fill"></div>
+          </div>
+          <div class="progress-footer">
+            <span id="statusMessage">Complete a 20s rest to log your first break.</span>
+            <div style="display:flex;gap:10px;flex-shrink:0;">
+              <button id="testBellBtn" type="button" class="link-btn link-btn-teal">Test Bell</button>
+              <button id="resetBtn" type="button" class="link-btn">Reset</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="alerts-box">
+          <div class="alerts-top">
+            <div>
+              <h3 class="alerts-title">iPhone Mon–Fri Alerts</h3>
+              <p class="alerts-desc">
+                Add 18 recurring 30-min reminders (9 AM–6 PM) to Apple Calendar.
+              </p>
+            </div>
+            <button id="downloadIcsBtn" type="button" class="btn-ics">
+              Get .ics
+            </button>
+          </div>
+          <div class="alerts-bottom">
+            <span id="notifyStatus">Edge / desktop alerts: off</span>
+            <button id="notifyBtn" type="button" class="link-btn link-btn-teal">
+              Enable Browser Alerts
+            </button>
+          </div>
+        </section>
+      </main>
+
+      <!-- ========================================================= -->
+      <!-- CARD 2: DAILY WATER HYDRATION TRACKER (9 AM – 5 PM)       -->
+      <!-- ========================================================= -->
+      <section class="card" aria-label="Daily Water Hydration Tracker">
+        <header class="header">
+          <span id="waterScheduleBadge" class="badge badge-blue">
+            Office Hours • 9:00 AM – 5:00 PM
+          </span>
+          <h2 class="title">Daily Water Hydration</h2>
+          <p class="subtitle">
+            45-minute hydration reminders during office hours.
+          </p>
+        </header>
+
+        <div id="waterAlertBanner" class="alert-banner-blue hidden">
+          <span>💧 Hydration check! Time to drink water.</span>
+          <button id="ackWaterBtn" type="button" class="btn btn-blue" style="padding:6px 10px;font-size:12px;">
+            Acknowledge
+          </button>
+        </div>
+
+        <div class="goal-row">
+          <div class="goal-input-group">
+            <label for="waterGoalInput"><strong>Daily Goal (L):</strong></label>
+            <input
+              id="waterGoalInput"
+              type="number"
+              min="0.5"
+              max="8"
+              step="0.25"
+              value="3"
+              class="small-input"
+            />
+            <button id="saveGoalBtn" type="button" class="btn btn-blue" style="padding:5px 10px;font-size:12px;">
+              Set
+            </button>
+          </div>
+          <span id="nextReminderText">Next: --:--</span>
+        </div>
+
+        <div class="water-hero">
+          <div class="bottle-wrap" title="Water intake progress">
+            <svg viewBox="0 0 90 156" width="90" height="156" aria-hidden="true">
+              <defs>
+                <clipPath id="bottleClip">
+                  <path d="M32 10 H58 V24 L72 42 V140 Q72 150 62 150 H28 Q18 150 18 140 V42 L32 24 Z" />
+                </clipPath>
+                <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#38bdf8" />
+                  <stop offset="100%" stop-color="#0284c7" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M32 10 H58 V24 L72 42 V140 Q72 150 62 150 H28 Q18 150 18 140 V42 L32 24 Z"
+                fill="#e0f2fe"
+                fill-opacity="0.35"
+              />
+              <g clip-path="url(#bottleClip)">
+                <rect
+                  id="bottleWaterRect"
+                  x="16"
+                  y="152"
+                  width="60"
+                  height="0"
+                  fill="url(#waterGrad)"
+                  style="transition: y 0.45s ease, height 0.45s ease;"
+                />
+              </g>
+              <rect x="30" y="4" width="30" height="8" rx="3" fill="#0284c7" />
+              <path
+                d="M32 12 H58 V24 L72 42 V140 Q72 150 62 150 H28 Q18 150 18 140 V42 L32 24 Z"
+                fill="none"
+                stroke="#0284c7"
+                stroke-width="3"
+                stroke-linejoin="round"
+              />
+              <text
+                id="bottlePctLabel"
+                x="45"
+                y="96"
+                text-anchor="middle"
+                font-size="15"
+                font-weight="700"
+                fill="#0c4a6e"
+              >
+                0%
+              </text>
+            </svg>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-tile">
+              <span class="stat-label">Daily Goal</span>
+              <span id="waterGoalStat" class="stat-value">3000 ml</span>
+            </div>
+            <div class="stat-tile">
+              <span class="stat-label">Consumed</span>
+              <span id="waterConsumedStat" class="stat-value">0 ml</span>
+            </div>
+            <div class="stat-tile">
+              <span class="stat-label">Remaining</span>
+              <span id="waterRemainingStat" class="stat-value">3000 ml</span>
+            </div>
+            <div class="stat-tile">
+              <span class="stat-label">Completed</span>
+              <span id="waterPctStat" class="stat-value">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="progress-box" style="margin-top:8px;">
+          <div class="progress-top">
+            <div class="progress-title-wrap">
+              <span class="progress-title">Hydration Status</span>
+              <span id="waterStreakBadge" class="streak-badge-blue">0d streak</span>
+            </div>
+            <span id="waterStatusPill" class="status-pill status-needs">Needs Improvement</span>
+          </div>
+          <div class="bar-track">
+            <div id="waterGoalBar" class="bar-fill-blue"></div>
+          </div>
+          <div id="waterMilestoneMsg" class="milestone-box hidden"></div>
+        </div>
+
+        <div class="quick-grid">
+          <button type="button" class="btn btn-blue-soft water-quick-btn" data-ml="100">+100 ml</button>
+          <button type="button" class="btn btn-blue-soft water-quick-btn" data-ml="250">+250 ml</button>
+          <button type="button" class="btn btn-blue-soft water-quick-btn" data-ml="500">+500 ml</button>
+        </div>
+        <div class="custom-row">
+          <input
+            id="customWaterInput"
+            type="number"
+            min="10"
+            max="3000"
+            step="10"
+            placeholder="Custom amount (ml)"
+            class="custom-input"
+          />
+          <button id="addCustomWaterBtn" type="button" class="btn btn-blue">Add</button>
+        </div>
+
+        <div id="waterSummaryBox" class="summary-box hidden">
+          <div class="summary-title">
+            <span>5:00 PM Daily Summary</span>
+            <span id="summaryAchievedBadge" class="status-pill status-needs">In Progress</span>
+          </div>
+          <div class="summary-grid">
+            <div><span class="stat-label">Total Consumed</span><strong id="sumConsumed">0 ml</strong></div>
+            <div><span class="stat-label">Goal Status</span><strong id="sumGoalStatus">Not Achieved</strong></div>
+            <div><span class="stat-label">Reminders Acked</span><strong id="sumAcked">0</strong></div>
+            <div><span class="stat-label">Hydration Score</span><strong id="sumScore">0 / 100</strong></div>
+          </div>
+        </div>
+
+        <div class="chart-box">
+          <div class="chart-header">
+            <h3 class="chart-title">7-Day Hydration Analytics</h3>
+            <button id="exportCsvBtn" type="button" class="link-btn link-btn-blue">Export CSV</button>
+          </div>
+          <svg id="weeklyChartSvg" viewBox="0 0 320 110" width="100%" height="110" role="img" aria-label="Weekly hydration bar chart"></svg>
+        </div>
+
+        <div class="utility-row">
+          <div style="display:flex;gap:10px;">
+            <button id="testWaterReminderBtn" type="button" class="link-btn link-btn-blue">Test Reminder</button>
+            <button id="toggleSummaryBtn" type="button" class="link-btn link-btn-blue">5 PM Summary</button>
+          </div>
+          <button id="waterResetBtn" type="button" class="link-btn">Reset Today</button>
+        </div>
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- CARD 3: DEEP BREATHING / MINDFUL RESET (1–2 MINS)         -->
+      <!-- ========================================================= -->
+      <section class="card card-calm" aria-label="Deep Breathing and Mindful Reset">
+        <header class="header">
+          <span class="badge badge-calm">
+            Mindful Reset • Every 2 Hours (9 AM – 5 PM)
+          </span>
+          <h2 class="title">Deep Breathing / Mindful Reset</h2>
+          <p class="subtitle">
+            Guided breathing to reduce stress and restore focus.
+          </p>
+        </header>
+
+        <!-- 2-Hour Wellness Reminder Banner with 15-min Snooze -->
+        <div id="breathReminderBanner" class="alert-banner-calm hidden">
+          <span>🌿 Take a 1-minute mindful breathing break.</span>
+          <div style="display:flex;gap:8px;">
+            <button id="breathStartFromReminderBtn" type="button" class="btn btn-calm" style="padding:6px 10px;font-size:12px;">
+              Start Now
+            </button>
+            <button id="breathSnoozeBtn" type="button" class="btn btn-calm-soft" style="padding:6px 10px;font-size:12px;">
+              Snooze 15m
+            </button>
+          </div>
+        </div>
+
+        <!-- Animated Breathing Stage -->
+        <div class="calm-stage">
+          <div id="breathCircleOuter" class="breath-circle-outer">
+            <div id="breathCircle" class="breath-circle" aria-live="polite">
+              <span id="breathPhaseLabel" class="breath-phase-text">Ready</span>
+              <span id="breathPhaseTimer" class="breath-sec-text">4s</span>
+            </div>
+          </div>
+
+          <div id="breathTextOnlyBox" class="breath-text-only-box hidden" aria-live="polite">
+            <div id="breathTextOnlyPhase" style="font-size:18px;font-weight:700;color:var(--calm-accent);">
+              Ready to Begin
+            </div>
+            <div id="breathTextOnlySec" style="font-size:26px;font-weight:700;margin-top:4px;">4s</div>
+          </div>
+
+          <div id="breathCycleText" class="cycle-pill">Remaining cycles: 5 / 5</div>
+          <p id="breathQuote" class="quote-text">
+            "Relax your shoulders and take a deep breath."
+          </p>
+        </div>
+
+        <!-- Start / Pause / Reset Controls -->
+        <div class="btn-row" style="margin-top:0;">
+          <button id="breathStartBtn" type="button" class="btn btn-calm">Start</button>
+          <button id="breathPauseBtn" type="button" class="btn btn-calm-soft">Pause</button>
+          <button id="breathResetBtn" type="button" class="btn btn-mute" style="font-size:13px;">Reset</button>
+        </div>
+
+        <!-- Configurable Breathing Pattern Timings -->
+        <div class="config-grid" aria-label="Breathing pattern settings">
+          <div class="config-cell">
+            <label for="inhaleSecInput">Inhale (s)</label>
+            <input id="inhaleSecInput" type="number" min="2" max="10" value="4" />
+          </div>
+          <div class="config-cell">
+            <label for="holdSecInput">Hold (s)</label>
+            <input id="holdSecInput" type="number" min="0" max="10" value="2" />
+          </div>
+          <div class="config-cell">
+            <label for="exhaleSecInput">Exhale (s)</label>
+            <input id="exhaleSecInput" type="number" min="2" max="12" value="6" />
+          </div>
+          <div class="config-cell">
+            <label for="cyclesInput">Cycles</label>
+            <input id="cyclesInput" type="number" min="1" max="20" value="5" />
+          </div>
+        </div>
+
+        <!-- Ambient Sound & Accessibility Controls -->
+        <div class="ambient-row">
+          <label for="ambientSoundSelect"><strong>Ambient Sound:</strong></label>
+          <select id="ambientSoundSelect" class="select-control">
+            <option value="off">Off</option>
+            <option value="rain">Rain</option>
+            <option value="ocean">Ocean Waves</option>
+            <option value="forest">Forest Breeze</option>
+          </select>
+        </div>
+
+        <div class="toggles-row">
+          <label class="check-label">
+            <input id="breathSoundGuideChk" type="checkbox" checked />
+            Sound Guidance
+          </label>
+          <label class="check-label">
+            <input id="breathRemindersChk" type="checkbox" checked />
+            2h Reminders
+          </label>
+          <label class="check-label">
+            <input id="breathTextOnlyChk" type="checkbox" />
+            Text-Only
+          </label>
+        </div>
+
+        <!-- Wellness Tracking & Mindfulness Badges -->
+        <div class="progress-box" style="margin-top:12px;">
+          <div class="progress-top" style="margin-bottom:6px;">
+            <span class="progress-title">Today's Mindfulness</span>
+            <span id="breathNextReminderLabel" style="font-size:11px;color:var(--muted);">Next: --:--</span>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-tile">
+              <span class="stat-label">Sessions Today</span>
+              <span id="breathSessionsToday" class="stat-value">0</span>
+            </div>
+            <div class="stat-tile">
+              <span class="stat-label">Mindful Minutes</span>
+              <span id="breathMinutesToday" class="stat-value">0.0 min</span>
+            </div>
+          </div>
+
+          <div class="badges-wrap" aria-label="Mindfulness badges">
+            <span id="badgeFirstSession" class="award-badge">🌱 First Session</span>
+            <span id="badgeFiveSessions" class="award-badge">✨ 5 Sessions</span>
+            <span id="badgeThirtyMins" class="award-badge">🧘 30 Min Mindful</span>
+            <span id="badgeSevenStreak" class="award-badge">🔥 7-Day Streak</span>
+          </div>
+        </div>
+
+        <!-- Weekly Wellness Statistics -->
+        <div class="chart-box">
+          <div class="chart-header">
+            <h3 class="chart-title">Weekly Mindful Minutes</h3>
+            <span id="breathWeeklyTotal" style="font-size:12px;font-weight:700;color:var(--calm-accent);">0 min</span>
+          </div>
+          <svg id="breathChartSvg" viewBox="0 0 320 90" width="100%" height="90" role="img" aria-label="Weekly mindful minutes bar chart"></svg>
+        </div>
+
+        <div class="utility-row">
+          <button id="testBreathReminderBtn" type="button" class="link-btn link-btn-calm">Test 2h Reminder</button>
+          <button id="breathClearStatsBtn" type="button" class="link-btn">Reset Today</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- JAVASCRIPT: EYE REST + WATER HYDRATION + DEEP BREATHING   -->
+  <!-- ========================================================= -->
+  <script>
+    // =========================================================
+    // SHARED HELPERS: DATE, THEME, AUDIO & NOTIFICATIONS
+    // =========================================================
+    const THEME_KEY = 'office_wellness_theme_v1';
+    let sharedAudioCtx = null;
+
+    function getTodayKey() {
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
+    }
+
+    function getAudioCtx() {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return null;
+      if (!sharedAudioCtx) sharedAudioCtx = new AudioCtx();
+      if (sharedAudioCtx.state === 'suspended') sharedAudioCtx.resume();
+      return sharedAudioCtx;
+    }
+
+    function playBellTone(ctx, freq, startTime, duration, volume) {
+      const fundamental = ctx.createOscillator();
+      const overtone = ctx.createOscillator();
+      const mainGain = ctx.createGain();
+      const overGain = ctx.createGain();
+
+      fundamental.type = 'sine';
+      fundamental.frequency.setValueAtTime(freq, startTime);
+      overtone.type = 'sine';
+      overtone.frequency.setValueAtTime(freq * 2, startTime);
+
+      mainGain.gain.setValueAtTime(0.001, startTime);
+      mainGain.gain.linearRampToValueAtTime(volume, startTime + 0.015);
+      mainGain.gain.exponentialRampToValueAtTime(0.0008, startTime + duration);
+
+      overGain.gain.setValueAtTime(0.001, startTime);
+      overGain.gain.linearRampToValueAtTime(volume * 0.25, startTime + 0.01);
+      overGain.gain.exponentialRampToValueAtTime(0.0008, startTime + duration * 0.6);
+
+      fundamental.connect(mainGain);
+      overtone.connect(overGain);
+      mainGain.connect(ctx.destination);
+      overGain.connect(ctx.destination);
+
+      fundamental.start(startTime);
+      overtone.start(startTime);
+      fundamental.stop(startTime + duration);
+      overtone.stop(startTime + duration);
+    }
+
+    function sendBrowserNotification(title, body) {
+      try {
+        if ('Notification' in window && Notification.permission === 'granted') {
+          new Notification(title, { body });
+        }
+      } catch (e) {}
+    }
+
+    // Dark Mode Toggle
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'Light Mode';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'Dark Mode';
+      }
+      try {
+        localStorage.setItem(THEME_KEY, theme);
+      } catch (e) {}
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    try {
+      const savedTheme = localStorage.getItem(THEME_KEY);
+      if (savedTheme === 'dark') applyTheme('dark');
+    } catch (e) {}
+
+    // =========================================================
+    // MODULE 1: 20-SECOND EYE REST TRACKER (9 AM – 6 PM)
+    // =========================================================
+    const REST_SECONDS = 20;
+    const WORK_SECONDS = 30 * 60;
+    const DAILY_GOAL = 18;
+    const RING_CIRCUMFERENCE = 2 * Math.PI * 52;
+    const STORAGE_KEY = 'eye_rest_tracker_v1';
+    const DEFAULT_TITLE = 'Office Wellness — Eye Rest, Hydration & Breathing';
+
+    let mode = 'rest';
+    let totalSeconds = REST_SECONDS;
+    let timeLeft = REST_SECONDS;
+    let timerId = null;
+    let completedBreaks = 0;
+    let streakDays = 0;
+    let lastActiveDate = '';
+    let isMuted = false;
+
+    const scheduleBadge = document.getElementById('scheduleBadge');
+    const alertBanner = document.getElementById('alertBanner');
+    const timerDisplay = document.getElementById('timerDisplay');
+    const timerLabel = document.getElementById('timerLabel');
+    const progressRing = document.getElementById('progressRing');
+    const startBtn = document.getElementById('startBtn');
+    const workBtn = document.getElementById('workBtn');
+    const muteBtn = document.getElementById('muteBtn');
+    const streakBadge = document.getElementById('streakBadge');
+    const countText = document.getElementById('countText');
+    const goalBar = document.getElementById('goalBar');
+    const statusMessage = document.getElementById('statusMessage');
+    const resetBtn = document.getElementById('resetBtn');
+    const testBellBtn = document.getElementById('testBellBtn');
+    const downloadIcsBtn = document.getElementById('downloadIcsBtn');
+    const notifyBtn = document.getElementById('notifyBtn');
+    const notifyStatus = document.getElementById('notifyStatus');
+
+    function saveState() {
+      try {
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({ completedBreaks, streakDays, lastActiveDate, isMuted })
+        );
+      } catch (e) {}
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        const today = getTodayKey();
+        isMuted = Boolean(data.isMuted);
+        streakDays = Number(data.streakDays) || 0;
+        lastActiveDate = data.lastActiveDate || '';
+        completedBreaks = lastActiveDate === today ? Number(data.completedBreaks) || 0 : 0;
+      } catch (e) {}
+    }
+
+    function formatTime(secs) {
+      if (mode === 'rest') return secs + 's';
+      const m = Math.floor(secs / 60);
+      const s = secs % 60;
+      return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    }
+
+    function updateScheduleBadge() {
+      const now = new Date();
+      const day = now.getDay();
+      const hour = now.getHours();
+      const isWorkDay = day >= 1 && day <= 5;
+      const isWorkHour = hour >= 9 && hour < 18;
+      if (isWorkDay && isWorkHour) {
+        scheduleBadge.textContent = 'Active Work Hours • Mon–Fri 9–6';
+        scheduleBadge.className = 'badge badge-active';
+      } else {
+        scheduleBadge.textContent = 'Outside Work Hours • Mon–Fri 9–6';
+        scheduleBadge.className = 'badge badge-inactive';
+      }
+    }
+
+    function playGentleChime() {
+      if (isMuted) return;
+      try {
+        const ctx = getAudioCtx();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+        playBellTone(ctx, 880, now, 0.55, 0.22);
+        playBellTone(ctx, 659.25, now + 0.28, 0.9, 0.22);
+      } catch (e) {}
+    }
+
+    function render() {
+      const formatted = formatTime(timeLeft);
+      timerDisplay.textContent = formatted;
+      document.title =
+        timerId !== null
+          ? mode === 'work'
+            ? `${formatted} • Work — Eye Rest`
+            : `${formatted} • Close Eyes!`
+          : DEFAULT_TITLE;
+
+      const progress = totalSeconds > 0 ? (totalSeconds - timeLeft) / totalSeconds : 0;
+      progressRing.style.strokeDashoffset = RING_CIRCUMFERENCE * progress;
+      progressRing.setAttribute('stroke', mode === 'work' ? '#1e293b' : '#0d9488');
+
+      countText.textContent = completedBreaks + ' / ' + DAILY_GOAL;
+      streakBadge.textContent = streakDays + 'd streak';
+      const pct = Math.min(100, Math.round((completedBreaks / DAILY_GOAL) * 100));
+      goalBar.style.width = pct + '%';
+      muteBtn.textContent = isMuted ? '🔇' : '🔔';
+
+      try {
+        if ('Notification' in window) {
+          if (Notification.permission === 'granted') notifyStatus.textContent = 'Edge / desktop alerts: enabled';
+          else if (Notification.permission === 'denied') notifyStatus.textContent = 'Edge / desktop alerts: blocked';
+          else notifyStatus.textContent = 'Edge / desktop alerts: off';
+        }
+      } catch (e) {
+        notifyStatus.textContent = 'Edge / desktop alerts: unavailable';
+      }
+    }
+
+    function stopTimer() {
+      if (timerId !== null) {
+        clearInterval(timerId);
+        timerId = null;
+      }
+      startBtn.textContent = 'Start 20s Eye Rest';
+      workBtn.textContent = 'Start 30m Work';
+    }
+
+    function recordBreak() {
+      const today = getTodayKey();
+      if (lastActiveDate !== today) {
+        streakDays += 1;
+        lastActiveDate = today;
+      }
+      completedBreaks += 1;
+      saveState();
+    }
+
+    function toggleRestTimer() {
+      alertBanner.classList.add('hidden');
+      if (timerId !== null && mode === 'rest') {
+        stopTimer();
+        timeLeft = REST_SECONDS;
+        totalSeconds = REST_SECONDS;
+        timerLabel.textContent = 'Ready to rest';
+        render();
+        return;
+      }
+      getAudioCtx();
+      stopTimer();
+      mode = 'rest';
+      totalSeconds = REST_SECONDS;
+      timeLeft = REST_SECONDS;
+      startBtn.textContent = 'Cancel Rest';
+      timerLabel.textContent = 'Close your eyes...';
+      render();
+
+      timerId = setInterval(() => {
+        timeLeft -= 1;
+        if (timeLeft <= 0) {
+          stopTimer();
+          recordBreak();
+          timeLeft = REST_SECONDS;
+          timerLabel.textContent = 'Nice! Eyes rested';
+          statusMessage.textContent =
+            completedBreaks >= DAILY_GOAL
+              ? 'Daily goal reached! Great job caring for your eyes.'
+              : 'Logged break #' + completedBreaks + '. Start 30m work when ready!';
+          playGentleChime();
+          render();
+          return;
+        }
+        render();
+      }, 1000);
+    }
+
+    function toggleWorkTimer() {
+      alertBanner.classList.add('hidden');
+      if (timerId !== null && mode === 'work') {
+        stopTimer();
+        mode = 'rest';
+        totalSeconds = REST_SECONDS;
+        timeLeft = REST_SECONDS;
+        timerLabel.textContent = 'Ready to rest';
+        render();
+        return;
+      }
+      getAudioCtx();
+      stopTimer();
+      mode = 'work';
+      totalSeconds = WORK_SECONDS;
+      timeLeft = WORK_SECONDS;
+      workBtn.textContent = 'Cancel Work';
+      timerLabel.textContent = 'Work focus (30m)';
+      render();
+
+      timerId = setInterval(() => {
+        timeLeft -= 1;
+        if (timeLeft <= 0) {
+          stopTimer();
+          mode = 'rest';
+          totalSeconds = REST_SECONDS;
+          timeLeft = REST_SECONDS;
+          timerLabel.textContent = 'Time for 20s rest!';
+          alertBanner.classList.remove('hidden');
+          playGentleChime();
+          sendBrowserNotification('20-Second Eye Rest', '30 minutes are up—close your eyes for 20 seconds.');
+          render();
+          return;
+        }
+        render();
+      }, 1000);
+    }
+
+    function downloadIphoneCalendar() {
+      const now = new Date();
+      const start = new Date(now);
+      const day = start.getDay();
+      if (day === 6) start.setDate(start.getDate() + 2);
+      if (day === 0) start.setDate(start.getDate() + 1);
+
+      const yyyy = start.getFullYear();
+      const mm = String(start.getMonth() + 1).padStart(2, '0');
+      const dd = String(start.getDate()).padStart(2, '0');
+      const dateStr = `${yyyy}${mm}${dd}`;
+
+      const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//EyeRestTracker//EN', 'CALSCALE:GREGORIAN'];
+      for (let i = 0; i < 18; i++) {
+        const totalMins = 9 * 60 + 30 + i * 30;
+        const hh = String(Math.floor(totalMins / 60)).padStart(2, '0');
+        const min = String(totalMins % 60).padStart(2, '0');
+        const endMins = totalMins + 1;
+        const endHh = String(Math.floor(endMins / 60)).padStart(2, '0');
+        const endMin = String(endMins % 60).padStart(2, '0');
+        lines.push(
+          'BEGIN:VEVENT',
+          `UID:eye-rest-${i}@eyetracker.local`,
+          `DTSTART:${dateStr}T${hh}${min}00`,
+          `DTEND:${dateStr}T${endHh}${endMin}00`,
+          'RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR',
+          'SUMMARY:Close eyes for 20 seconds',
+          'DESCRIPTION:ENT eye rest reminder (every 30 mins, Mon-Fri 9 AM - 6 PM).',
+          'BEGIN:VALARM',
+          'TRIGGER:PT0M',
+          'ACTION:DISPLAY',
+          'DESCRIPTION:Close your eyes for 20 seconds',
+          'END:VALARM',
+          'END:VEVENT'
+        );
+      }
+      lines.push('END:VCALENDAR');
+      const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'eye-rest-mon-fri.ics';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      statusMessage.textContent = 'Downloaded eye-rest-mon-fri.ics — open it on iPhone to add alerts!';
+    }
+
+    startBtn.addEventListener('click', toggleRestTimer);
+    workBtn.addEventListener('click', toggleWorkTimer);
+    muteBtn.addEventListener('click', () => {
+      isMuted = !isMuted;
+      saveState();
+      render();
+    });
+    resetBtn.addEventListener('click', () => {
+      stopTimer();
+      alertBanner.classList.add('hidden');
+      mode = 'rest';
+      totalSeconds = REST_SECONDS;
+      timeLeft = REST_SECONDS;
+      completedBreaks = 0;
+      saveState();
+      timerLabel.textContent = 'Ready to rest';
+      statusMessage.textContent = 'Complete a 20s rest to log your first break.';
+      render();
+    });
+    testBellBtn.addEventListener('click', () => {
+      if (isMuted) {
+        isMuted = false;
+        saveState();
+        render();
+      }
+      playGentleChime();
+    });
+    downloadIcsBtn.addEventListener('click', downloadIphoneCalendar);
+    notifyBtn.addEventListener('click', () => {
+      try {
+        if ('Notification' in window && Notification.permission !== 'granted') {
+          Notification.requestPermission().then(() => render());
+        } else {
+          render();
+        }
+      } catch (e) {}
+    });
+
+    // =========================================================
+    // MODULE 2: DAILY WATER HYDRATION TRACKER (9 AM – 5 PM)
+    // =========================================================
+    const WATER_STORAGE_KEY = 'office_water_hydration_v1';
+    const OFFICE_START_MIN = 9 * 60;
+    const OFFICE_END_MIN = 17 * 60;
+    const REMINDER_STEP_MIN = 45;
+
+    let waterState = {
+      goalMl: 3000,
+      consumedMl: 0,
+      ackedReminders: 0,
+      streakDays: 0,
+      lastGoalMetDate: '',
+      lastTriggeredSlot: '',
+      history: {}
+    };
+
+    let manualSummaryOpen = false;
+
+    const waterScheduleBadge = document.getElementById('waterScheduleBadge');
+    const waterAlertBanner = document.getElementById('waterAlertBanner');
+    const ackWaterBtn = document.getElementById('ackWaterBtn');
+    const waterGoalInput = document.getElementById('waterGoalInput');
+    const saveGoalBtn = document.getElementById('saveGoalBtn');
+    const nextReminderText = document.getElementById('nextReminderText');
+    const bottleWaterRect = document.getElementById('bottleWaterRect');
+    const bottlePctLabel = document.getElementById('bottlePctLabel');
+    const waterGoalStat = document.getElementById('waterGoalStat');
+    const waterConsumedStat = document.getElementById('waterConsumedStat');
+    const waterRemainingStat = document.getElementById('waterRemainingStat');
+    const waterPctStat = document.getElementById('waterPctStat');
+    const waterStreakBadge = document.getElementById('waterStreakBadge');
+    const waterStatusPill = document.getElementById('waterStatusPill');
+    const waterGoalBar = document.getElementById('waterGoalBar');
+    const waterMilestoneMsg = document.getElementById('waterMilestoneMsg');
+    const customWaterInput = document.getElementById('customWaterInput');
+    const addCustomWaterBtn = document.getElementById('addCustomWaterBtn');
+    const waterSummaryBox = document.getElementById('waterSummaryBox');
+    const summaryAchievedBadge = document.getElementById('summaryAchievedBadge');
+    const sumConsumed = document.getElementById('sumConsumed');
+    const sumGoalStatus = document.getElementById('sumGoalStatus');
+    const sumAcked = document.getElementById('sumAcked');
+    const sumScore = document.getElementById('sumScore');
+    const weeklyChartSvg = document.getElementById('weeklyChartSvg');
+    const exportCsvBtn = document.getElementById('exportCsvBtn');
+    const testWaterReminderBtn = document.getElementById('testWaterReminderBtn');
+    const toggleSummaryBtn = document.getElementById('toggleSummaryBtn');
+    const waterResetBtn = document.getElementById('waterResetBtn');
+
+    function saveWaterState() {
+      try {
+        const today = getTodayKey();
+        waterState.history[today] = {
+          consumedMl: waterState.consumedMl,
+          goalMl: waterState.goalMl,
+          ackedReminders: waterState.ackedReminders,
+        };
+        localStorage.setItem(WATER_STORAGE_KEY, JSON.stringify(waterState));
+      } catch (e) {}
+    }
+
+    function loadWaterState() {
+      try {
+        const raw = localStorage.getItem(WATER_STORAGE_KEY);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        const today = getTodayKey();
+        waterState.goalMl = Number(parsed.goalMl) || 3000;
+        waterState.streakDays = Number(parsed.streakDays) || 0;
+        waterState.lastGoalMetDate = parsed.lastGoalMetDate || '';
+        waterState.history = parsed.history && typeof parsed.history === 'object' ? parsed.history : {};
+        if (waterState.history[today]) {
+          waterState.consumedMl = Number(waterState.history[today].consumedMl) || 0;
+          waterState.ackedReminders = Number(waterState.history[today].ackedReminders) || 0;
+          waterState.lastTriggeredSlot = parsed.lastTriggeredSlot || '';
+        }
+      } catch (e) {}
+    }
+
+    function getNextWaterReminder() {
+      const now = new Date();
+      const minsNow = now.getHours() * 60 + now.getMinutes();
+      if (minsNow < OFFICE_START_MIN) return { inHours: false, label: 'Next: 9:00 AM', currentSlotKey: null };
+      if (minsNow >= OFFICE_END_MIN) return { inHours: false, label: 'Done for today (5 PM)', currentSlotKey: null };
+
+      const elapsed = minsNow - OFFICE_START_MIN;
+      const slotIndex = Math.floor(elapsed / REMINDER_STEP_MIN);
+      const currentSlotMin = OFFICE_START_MIN + slotIndex * REMINDER_STEP_MIN;
+      const nextSlotMin = currentSlotMin + REMINDER_STEP_MIN;
+
+      const formatMins = (m) => {
+        const h24 = Math.floor(m / 60);
+        const min = m % 60;
+        const suffix = h24 >= 12 ? 'PM' : 'AM';
+        const h12 = h24 % 12 === 0 ? 12 : h24 % 12;
+        return `${h12}:${String(min).padStart(2, '0')} ${suffix}`;
+      };
+
+      const nextLabel =
+        nextSlotMin <= OFFICE_END_MIN ? `Next: ${formatMins(nextSlotMin)}` : 'Final window (until 5 PM)';
+
+      return {
+        inHours: true,
+        label: nextLabel,
+        currentSlotKey: `${getTodayKey()}@${currentSlotMin}`,
+        isExactSlotMinute: elapsed % REMINDER_STEP_MIN === 0,
+      };
+    }
+
+    function updateMilestoneMessage(pct) {
+      const messages = [
+        { pct: 100, text: '🎉 100% Goal Reached! Outstanding hydration today.' },
+        { pct: 75, text: '💪 75% there! Just a little more to hit your daily goal.' },
+        { pct: 50, text: '🌊 Halfway (50%)! Keep your steady hydration pace.' },
+        { pct: 25, text: '💧 Great start (25%)! Your body thanks you.' },
+      ];
+      const hit = messages.find((m) => pct >= m.pct);
+      if (hit) {
+        waterMilestoneMsg.textContent = hit.text;
+        waterMilestoneMsg.classList.remove('hidden');
+      } else {
+        waterMilestoneMsg.classList.add('hidden');
+      }
+    }
+
+    function logWater(amountMl) {
+      const amt = Math.round(Number(amountMl));
+      if (!Number.isFinite(amt) || amt <= 0) return;
+      getAudioCtx();
+      waterState.consumedMl += amt;
+      const today = getTodayKey();
+      if (waterState.consumedMl >= waterState.goalMl && waterState.lastGoalMetDate !== today) {
+        waterState.streakDays += 1;
+        waterState.lastGoalMetDate = today;
+      }
+      saveWaterState();
+      renderWater();
+    }
+
+    function renderWeeklyChart() {
+      const days = [];
+      const now = new Date();
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date(now);
+        d.setDate(now.getDate() - i);
+        const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
+          d.getDate()
+        ).padStart(2, '0')}`;
+        const label = d.toLocaleDateString('en-US', { weekday: 'short' });
+        const rec = waterState.history[key];
+        const consumed = rec ? Number(rec.consumedMl) || 0 : 0;
+        const goal = rec ? Number(rec.goalMl) || waterState.goalMl : waterState.goalMl;
+        days.push({ label, consumed, goal, isToday: i === 0 });
+      }
+
+      const maxVal = Math.max(waterState.goalMl, ...days.map((d) => d.consumed), 1000);
+      const chartH = 74;
+      const barW = 24;
+      const gap = 20;
+      const startX = 16;
+
+      let svgParts = [
+        `<line x1="8" y1="${82 - (waterState.goalMl / maxVal) * chartH}" x2="312" y2="${
+          82 - (waterState.goalMl / maxVal) * chartH
+        }" stroke="#38bdf8" stroke-dasharray="3 3" stroke-width="1" />`,
+      ];
+
+      days.forEach((d, idx) => {
+        const x = startX + idx * (barW + gap);
+        const h = Math.max(2, Math.round((d.consumed / maxVal) * chartH));
+        const y = 82 - h;
+        const fill = d.consumed >= d.goal ? '#0284c7' : d.isToday ? '#38bdf8' : '#94a3b8';
+        svgParts.push(
+          `<rect x="${x}" y="${y}" width="${barW}" height="${h}" rx="4" fill="${fill}"><title>${d.label}: ${d.consumed} ml</title></rect>`,
+          `<text x="${x + barW / 2}" y="98" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.7">${d.label}</text>`
+        );
+      });
+
+      weeklyChartSvg.innerHTML = svgParts.join('');
+    }
+
+    function renderWater() {
+      const goal = waterState.goalMl;
+      const consumed = waterState.consumedMl;
+      const remaining = Math.max(0, goal - consumed);
+      const pct = goal > 0 ? Math.min(100, Math.round((consumed / goal) * 100)) : 0;
+
+      waterGoalInput.value = (goal / 1000).toFixed(2).replace(/\.00$/, '');
+      waterGoalStat.textContent = `${goal} ml`;
+      waterConsumedStat.textContent = `${consumed} ml`;
+      waterRemainingStat.textContent = `${remaining} ml`;
+      waterPctStat.textContent = `${pct}%`;
+      waterStreakBadge.textContent = `${waterState.streakDays}d streak`;
+      waterGoalBar.style.width = `${pct}%`;
+
+      const fillHeight = Math.round((pct / 100) * 124);
+      const fillY = 150 - fillHeight;
+      bottleWaterRect.setAttribute('y', String(fillY));
+      bottleWaterRect.setAttribute('height', String(fillHeight));
+      bottlePctLabel.textContent = `${pct}%`;
+      bottlePctLabel.setAttribute('fill', pct >= 45 ? '#ffffff' : '#0c4a6e');
+
+      if (pct >= 85) {
+        waterStatusPill.textContent = 'Excellent';
+        waterStatusPill.className = 'status-pill status-excellent';
+      } else if (pct >= 50) {
+        waterStatusPill.textContent = 'Good';
+        waterStatusPill.className = 'status-pill status-good';
+      } else {
+        waterStatusPill.textContent = 'Needs Improvement';
+        waterStatusPill.className = 'status-pill status-needs';
+      }
+
+      updateMilestoneMessage(pct);
+
+      const sched = getNextWaterReminder();
+      nextReminderText.textContent = sched.label;
+      waterScheduleBadge.textContent = sched.inHours
+        ? 'Active Office Hours • 9 AM – 5 PM'
+        : 'Office Hours • 9:00 AM – 5:00 PM';
+
+      const nowHour = new Date().getHours();
+      if (manualSummaryOpen || nowHour >= 17) {
+        waterSummaryBox.classList.remove('hidden');
+        const achieved = consumed >= goal;
+        const reminderBonus = Math.min(20, waterState.ackedReminders * 2);
+        const score = Math.min(100, Math.round(pct * 0.8 + reminderBonus));
+        summaryAchievedBadge.textContent = achieved ? 'Goal Achieved' : 'Not Achieved';
+        summaryAchievedBadge.className = achieved
+          ? 'status-pill status-excellent'
+          : 'status-pill status-needs';
+        sumConsumed.textContent = `${consumed} / ${goal} ml`;
+        sumGoalStatus.textContent = achieved ? 'Achieved 🎉' : `${remaining} ml short`;
+        sumAcked.textContent = String(waterState.ackedReminders);
+        sumScore.textContent = `${score} / 100`;
+      } else {
+        waterSummaryBox.classList.add('hidden');
+      }
+
+      renderWeeklyChart();
+    }
+
+    function triggerWaterReminderAlert() {
+      waterAlertBanner.classList.remove('hidden');
+      playGentleChime();
+      sendBrowserNotification('Hydration Reminder', '45 minutes passed—take a sip of water!');
+    }
+
+    function exportHydrationCsv() {
+      const rows = [['Date', 'Consumed (ml)', 'Goal (ml)', 'Completed (%)', 'Reminders Acknowledged']];
+      Object.keys(waterState.history)
+        .sort()
+        .forEach((dateKey) => {
+          const rec = waterState.history[dateKey];
+          const c = Number(rec.consumedMl) || 0;
+          const g = Number(rec.goalMl) || 3000;
+          const p = g > 0 ? Math.round((c / g) * 100) : 0;
+          const a = Number(rec.ackedReminders) || 0;
+          rows.push([dateKey, c, g, `${p}%`, a]);
+        });
+
+      const blob = new Blob([rows.map((r) => r.join(',')).join('\r\n')], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'hydration-report.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    document.querySelectorAll('.water-quick-btn').forEach((btn) => {
+      btn.addEventListener('click', () => logWater(btn.dataset.ml));
+    });
+    addCustomWaterBtn.addEventListener('click', () => {
+      const val = Number(customWaterInput.value);
+      if (Number.isFinite(val) && val > 0) {
+        logWater(val);
+        customWaterInput.value = '';
+      }
+    });
+    saveGoalBtn.addEventListener('click', () => {
+      const liters = Number(waterGoalInput.value);
+      if (Number.isFinite(liters) && liters >= 0.5 && liters <= 8) {
+        waterState.goalMl = Math.round(liters * 1000);
+        saveWaterState();
+        renderWater();
+      }
+    });
+    ackWaterBtn.addEventListener('click', () => {
+      waterState.ackedReminders += 1;
+      waterAlertBanner.classList.add('hidden');
+      saveWaterState();
+      renderWater();
+    });
+    testWaterReminderBtn.addEventListener('click', () => {
+      getAudioCtx();
+      triggerWaterReminderAlert();
+    });
+    toggleSummaryBtn.addEventListener('click', () => {
+      manualSummaryOpen = !manualSummaryOpen;
+      renderWater();
+    });
+    waterResetBtn.addEventListener('click', () => {
+      waterState.consumedMl = 0;
+      waterState.ackedReminders = 0;
+      waterAlertBanner.classList.add('hidden');
+      saveWaterState();
+      renderWater();
+    });
+    exportCsvBtn.addEventListener('click', exportHydrationCsv);
+
+    // =========================================================
+    // MODULE 3: DEEP BREATHING / MINDFUL RESET (1–2 MINS)
+    // =========================================================
+    const BREATH_STORAGE_KEY = 'office_mindful_breathing_v1';
+    const BREATH_QUOTES = [
+      '"Relax your shoulders and take a deep breath."',
+      '"A calm mind improves productivity."',
+      '"60 seconds of mindfulness can reset your focus."',
+      '"Slow exhales signal your nervous system to unwind."'
+    ];
+
+    let breathConfig = {
+      inhale: 4,
+      hold: 2,
+      exhale: 6,
+      cycles: 5,
+      soundGuidance: true,
+      remindersEnabled: true,
+      textOnly: false
+    };
+
+    let breathStats = {
+      totalSessions: 0,
+      totalMinutes: 0,
+      streakDays: 0,
+      lastSessionDate: '',
+      lastTriggeredSlot: '',
+      snoozeUntilMs: 0,
+      history: {} // { 'YYYY-MM-DD': { sessions, minutes } }
+    };
+
+    let breathSession = {
+      running: false,
+      paused: false,
+      phase: 'ready', // 'ready' | 'inhale' | 'hold' | 'exhale' | 'done'
+      phaseLeft: 4,
+      cyclesLeft: 5,
+      rafId: null,
+      lastTickMs: 0,
+      accumulatedSec: 0
+    };
+
+    // Ambient sound nodes
+    let ambientNodes = null;
+
+    const breathReminderBanner = document.getElementById('breathReminderBanner');
+    const breathStartFromReminderBtn = document.getElementById('breathStartFromReminderBtn');
+    const breathSnoozeBtn = document.getElementById('breathSnoozeBtn');
+    const breathCircleOuter = document.getElementById('breathCircleOuter');
+    const breathCircle = document.getElementById('breathCircle');
+    const breathPhaseLabel = document.getElementById('breathPhaseLabel');
+    const breathPhaseTimer = document.getElementById('breathPhaseTimer');
+    const breathTextOnlyBox = document.getElementById('breathTextOnlyBox');
+    const breathTextOnlyPhase = document.getElementById('breathTextOnlyPhase');
+    const breathTextOnlySec = document.getElementById('breathTextOnlySec');
+    const breathCycleText = document.getElementById('breathCycleText');
+    const breathQuote = document.getElementById('breathQuote');
+    const breathStartBtn = document.getElementById('breathStartBtn');
+    const breathPauseBtn = document.getElementById('breathPauseBtn');
+    const breathResetBtn = document.getElementById('breathResetBtn');
+    const inhaleSecInput = document.getElementById('inhaleSecInput');
+    const holdSecInput = document.getElementById('holdSecInput');
+    const exhaleSecInput = document.getElementById('exhaleSecInput');
+    const cyclesInput = document.getElementById('cyclesInput');
+    const ambientSoundSelect = document.getElementById('ambientSoundSelect');
+    const breathSoundGuideChk = document.getElementById('breathSoundGuideChk');
+    const breathRemindersChk = document.getElementById('breathRemindersChk');
+    const breathTextOnlyChk = document.getElementById('breathTextOnlyChk');
+    const breathNextReminderLabel = document.getElementById('breathNextReminderLabel');
+    const breathSessionsToday = document.getElementById('breathSessionsToday');
+    const breathMinutesToday = document.getElementById('breathMinutesToday');
+    const badgeFirstSession = document.getElementById('badgeFirstSession');
+    const badgeFiveSessions = document.getElementById('badgeFiveSessions');
+    const badgeThirtyMins = document.getElementById('badgeThirtyMins');
+    const badgeSevenStreak = document.getElementById('badgeSevenStreak');
+    const breathWeeklyTotal = document.getElementById('breathWeeklyTotal');
+    const breathChartSvg = document.getElementById('breathChartSvg');
+    const testBreathReminderBtn = document.getElementById('testBreathReminderBtn');
+    const breathClearStatsBtn = document.getElementById('breathClearStatsBtn');
+
+    function saveBreathState() {
+      try {
+        localStorage.setItem(BREATH_STORAGE_KEY, JSON.stringify({ breathConfig, breathStats }));
+      } catch (e) {}
+    }
+
+    function loadBreathState() {
+      try {
+        const raw = localStorage.getItem(BREATH_STORAGE_KEY);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (parsed.breathConfig) Object.assign(breathConfig, parsed.breathConfig);
+        if (parsed.breathStats) Object.assign(breathStats, parsed.breathStats);
+      } catch (e) {}
+    }
+
+    /** Synthesize soft offline ambient soundscapes (rain, ocean, forest) */
+    function stopAmbientSound() {
+      if (!ambientNodes) return;
+      try {
+        ambientNodes.source.stop();
+        if (ambientNodes.lfo) ambientNodes.lfo.stop();
+        ambientNodes.gain.disconnect();
+      } catch (e) {}
+      ambientNodes = null;
+    }
+
+    function startAmbientSound(type) {
+      stopAmbientSound();
+      if (type === 'off') return;
+      try {
+        const ctx = getAudioCtx();
+        if (!ctx) return;
+
+        // 2-second noise buffer
+        const bufferSize = ctx.sampleRate * 2;
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        let lastOut = 0;
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          lastOut = (lastOut + 0.04 * white) / 1.04;
+          data[i] = lastOut * 2.5;
+        }
+
+        const source = ctx.createBufferSource();
+        source.buffer = buffer;
+        source.loop = true;
+
+        const filter = ctx.createBiquadFilter();
+        const gain = ctx.createGain();
+        let lfo = null;
+
+        if (type === 'rain') {
+          filter.type = 'bandpass';
+          filter.frequency.value = 1100;
+          filter.Q.value = 0.6;
+          gain.gain.value = 0.12;
+        } else if (type === 'ocean') {
+          filter.type = 'lowpass';
+          filter.frequency.value = 420;
+          gain.gain.value = 0.14;
+          lfo = ctx.createOscillator();
+          const lfoGain = ctx.createGain();
+          lfo.frequency.value = 0.12; // slow wave swell
+          lfoGain.gain.value = 0.08;
+          lfo.connect(lfoGain);
+          lfoGain.connect(gain.gain);
+          lfo.start();
+        } else {
+          // forest breeze
+          filter.type = 'lowpass';
+          filter.frequency.value = 680;
+          gain.gain.value = 0.09;
+        }
+
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+        source.start();
+        ambientNodes = { source, gain, lfo };
+      } catch (e) {}
+    }
+
+    function playPhaseCue(phase) {
+      if (!breathConfig.soundGuidance || isMuted) return;
+      try {
+        const ctx = getAudioCtx();
+        if (!ctx) return;
+        const freq = phase === 'inhale' ? 528 : phase === 'hold' ? 594 : 396;
+        playBellTone(ctx, freq, ctx.currentTime, 0.45, 0.12);
+      } catch (e) {}
+    }
+
+    function setCircleAnimation(phase, durationSec) {
+      if (phase === 'inhale') {
+        breathCircle.style.transitionDuration = `${durationSec}s`;
+        breathCircle.style.transform = 'scale(1.18)';
+      } else if (phase === 'hold') {
+        breathCircle.style.transitionDuration = '0.2s';
+        breathCircle.style.transform = 'scale(1.18)';
+      } else if (phase === 'exhale') {
+        breathCircle.style.transitionDuration = `${durationSec}s`;
+        breathCircle.style.transform = 'scale(0.78)';
+      } else {
+        breathCircle.style.transitionDuration = '0.35s';
+        breathCircle.style.transform = 'scale(0.78)';
+      }
+    }
+
+    function enterBreathPhase(phase) {
+      breathSession.phase = phase;
+      const dur =
+        phase === 'inhale'
+          ? breathConfig.inhale
+          : phase === 'hold'
+          ? breathConfig.hold
+          : breathConfig.exhale;
+      breathSession.phaseLeft = dur;
+      setCircleAnimation(phase, dur);
+      playPhaseCue(phase);
+      renderBreathingUI();
+    }
+
+    function completeBreathingSession() {
+      breathSession.running = false;
+      breathSession.paused = false;
+      breathSession.phase = 'done';
+      if (breathSession.rafId) cancelAnimationFrame(breathSession.rafId);
+      breathSession.rafId = null;
+      stopAmbientSound();
+
+      const cycleSec = breathConfig.inhale + breathConfig.hold + breathConfig.exhale;
+      const sessionMinutes = Number(((cycleSec * breathConfig.cycles) / 60).toFixed(2));
+      const today = getTodayKey();
+
+      if (!breathStats.history[today]) breathStats.history[today] = { sessions: 0, minutes: 0 };
+      breathStats.history[today].sessions += 1;
+      breathStats.history[today].minutes = Number((breathStats.history[today].minutes + sessionMinutes).toFixed(2));
+
+      breathStats.totalSessions += 1;
+      breathStats.totalMinutes = Number((breathStats.totalMinutes + sessionMinutes).toFixed(2));
+
+      if (breathStats.lastSessionDate !== today) {
+        breathStats.streakDays += 1;
+        breathStats.lastSessionDate = today;
+      }
+
+      playGentleChime();
+      saveBreathState();
+      setCircleAnimation('ready', 0.35);
+      breathQuote.textContent = BREATH_QUOTES[breathStats.totalSessions % BREATH_QUOTES.length];
+      renderBreathingUI();
+    }
+
+    function breathAnimationLoop(nowMs) {
+      if (!breathSession.running || breathSession.paused) return;
+      if (!breathSession.lastTickMs) breathSession.lastTickMs = nowMs;
+      const deltaSec = (nowMs - breathSession.lastTickMs) / 1000;
+      breathSession.lastTickMs = nowMs;
+      breathSession.accumulatedSec += deltaSec;
+
+      if (breathSession.accumulatedSec >= 1) {
+        const steps = Math.floor(breathSession.accumulatedSec);
+        breathSession.accumulatedSec -= steps;
+        breathSession.phaseLeft -= steps;
+
+        if (breathSession.phaseLeft <= 0) {
+          if (breathSession.phase === 'inhale') {
+            if (breathConfig.hold > 0) enterBreathPhase('hold');
+            else enterBreathPhase('exhale');
+          } else if (breathSession.phase === 'hold') {
+            enterBreathPhase('exhale');
+          } else if (breathSession.phase === 'exhale') {
+            breathSession.cyclesLeft -= 1;
+            if (breathSession.cyclesLeft <= 0) {
+              completeBreathingSession();
+              return;
+            }
+            enterBreathPhase('inhale');
+          }
+        } else {
+          renderBreathingUI();
+        }
+      }
+
+      breathSession.rafId = requestAnimationFrame(breathAnimationLoop);
+    }
+
+    function startBreathing() {
+      getAudioCtx();
+      breathReminderBanner.classList.add('hidden');
+      if (breathSession.running && breathSession.paused) {
+        breathSession.paused = false;
+        breathSession.lastTickMs = 0;
+        if (ambientSoundSelect.value !== 'off') startAmbientSound(ambientSoundSelect.value);
+        breathSession.rafId = requestAnimationFrame(breathAnimationLoop);
+        renderBreathingUI();
+        return;
+      }
+      if (breathSession.running) return;
+
+      breathSession.running = true;
+      breathSession.paused = false;
+      breathSession.cyclesLeft = breathConfig.cycles;
+      breathSession.lastTickMs = 0;
+      breathSession.accumulatedSec = 0;
+      if (ambientSoundSelect.value !== 'off') startAmbientSound(ambientSoundSelect.value);
+      enterBreathPhase('inhale');
+      breathSession.rafId = requestAnimationFrame(breathAnimationLoop);
+    }
+
+    function pauseBreathing() {
+      if (!breathSession.running) return;
+      breathSession.paused = true;
+      if (breathSession.rafId) cancelAnimationFrame(breathSession.rafId);
+      breathSession.rafId = null;
+      stopAmbientSound();
+      renderBreathingUI();
+    }
+
+    function resetBreathing() {
+      breathSession.running = false;
+      breathSession.paused = false;
+      breathSession.phase = 'ready';
+      breathSession.phaseLeft = breathConfig.inhale;
+      breathSession.cyclesLeft = breathConfig.cycles;
+      if (breathSession.rafId) cancelAnimationFrame(breathSession.rafId);
+      breathSession.rafId = null;
+      stopAmbientSound();
+      setCircleAnimation('ready', 0.35);
+      renderBreathingUI();
+    }
+
+    function renderBreathingChart() {
+      const days = [];
+      const now = new Date();
+      let weeklyTotal = 0;
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date(now);
+        d.setDate(now.getDate() - i);
+        const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
+          d.getDate()
+        ).padStart(2, '0')}`;
+        const label = d.toLocaleDateString('en-US', { weekday: 'short' });
+        const rec = breathStats.history[key];
+        const mins = rec ? Number(rec.minutes) || 0 : 0;
+        weeklyTotal += mins;
+        days.push({ label, mins, isToday: i === 0 });
+      }
+      breathWeeklyTotal.textContent = `${weeklyTotal.toFixed(1)} min`;
+
+      const maxVal = Math.max(...days.map((d) => d.mins), 5);
+      const chartH = 56;
+      const barW = 24;
+      const gap = 20;
+      const startX = 16;
+
+      const svgParts = days.map((d, idx) => {
+        const x = startX + idx * (barW + gap);
+        const h = Math.max(2, Math.round((d.mins / maxVal) * chartH));
+        const y = 64 - h;
+        const fill = d.isToday ? '#059669' : d.mins > 0 ? '#34d399' : '#94a3b8';
+        return (
+          `<rect x="${x}" y="${y}" width="${barW}" height="${h}" rx="4" fill="${fill}"><title>${d.label}: ${d.mins} min</title></rect>` +
+          `<text x="${x + barW / 2}" y="80" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.7">${d.label}</text>`
+        );
+      });
+      breathChartSvg.innerHTML = svgParts.join('');
+    }
+
+    function getNextTwoHourBreathSlot() {
+      if (!breathConfig.remindersEnabled) return { label: 'Reminders off', triggerKey: null };
+      const now = new Date();
+      const minsNow = now.getHours() * 60 + now.getMinutes();
+      if (minsNow < 9 * 60) return { label: 'Next: 9:00 AM', triggerKey: null };
+      if (minsNow >= 17 * 60) return { label: 'Done for today', triggerKey: null };
+      const elapsed = minsNow - 9 * 60;
+      const slotIdx = Math.floor(elapsed / 120);
+      const currentSlotMin = 9 * 60 + slotIdx * 120;
+      const nextSlotMin = currentSlotMin + 120;
+      const fmt = (m) => {
+        const h24 = Math.floor(m / 60);
+        const suf = h24 >= 12 ? 'PM' : 'AM';
+        const h12 = h24 % 12 === 0 ? 12 : h24 % 12;
+        return `${h12}:00 ${suf}`;
+      };
+      return {
+        label: nextSlotMin <= 17 * 60 ? `Next: ${fmt(nextSlotMin)}` : 'Final window',
+        triggerKey: `${getTodayKey()}@${currentSlotMin}`,
+        isExactSlotMinute: elapsed % 120 === 0
+      };
+    }
+
+    function renderBreathingUI() {
+      const phaseNames = {
+        ready: 'Ready',
+        inhale: 'Inhale',
+        hold: 'Hold',
+        exhale: 'Exhale',
+        done: 'Complete!'
+      };
+      const label = breathSession.paused ? 'Paused' : phaseNames[breathSession.phase] || 'Ready';
+      const secText = breathSession.phase === 'done' ? '✓' : `${breathSession.phaseLeft}s`;
+
+      breathPhaseLabel.textContent = label;
+      breathPhaseTimer.textContent = secText;
+      breathTextOnlyPhase.textContent = label;
+      breathTextOnlySec.textContent = secText;
+
+      breathCircleOuter.classList.toggle('hidden', breathConfig.textOnly);
+      breathTextOnlyBox.classList.toggle('hidden', !breathConfig.textOnly);
+
+      breathCycleText.textContent = `Remaining cycles: ${breathSession.cyclesLeft} / ${breathConfig.cycles}`;
+      breathStartBtn.textContent = breathSession.paused ? 'Resume' : breathSession.running ? 'Running' : 'Start';
+
+      inhaleSecInput.value = breathConfig.inhale;
+      holdSecInput.value = breathConfig.hold;
+      exhaleSecInput.value = breathConfig.exhale;
+      cyclesInput.value = breathConfig.cycles;
+      breathSoundGuideChk.checked = breathConfig.soundGuidance;
+      breathRemindersChk.checked = breathConfig.remindersEnabled;
+      breathTextOnlyChk.checked = breathConfig.textOnly;
+
+      const today = getTodayKey();
+      const todayRec = breathStats.history[today] || { sessions: 0, minutes: 0 };
+      breathSessionsToday.textContent = String(todayRec.sessions);
+      breathMinutesToday.textContent = `${Number(todayRec.minutes).toFixed(1)} min`;
+
+      badgeFirstSession.classList.toggle('earned', breathStats.totalSessions >= 1);
+      badgeFiveSessions.classList.toggle('earned', breathStats.totalSessions >= 5);
+      badgeThirtyMins.classList.toggle('earned', breathStats.totalMinutes >= 30);
+      badgeSevenStreak.classList.toggle('earned', breathStats.streakDays >= 7);
+
+      const sched = getNextTwoHourBreathSlot();
+      breathNextReminderLabel.textContent = sched.label;
+      renderBreathingChart();
+    }
+
+    function triggerBreathReminder() {
+      breathReminderBanner.classList.remove('hidden');
+      playGentleChime();
+      sendBrowserNotification('Mindful Breathing Break', 'Take a 1-minute mindful breathing break.');
+    }
+
+    function checkAllRemindersTick() {
+      const waterSched = getNextWaterReminder();
+      if (waterSched.inHours && waterSched.isExactSlotMinute && waterState.lastTriggeredSlot !== waterSched.currentSlotKey) {
+        waterState.lastTriggeredSlot = waterSched.currentSlotKey;
+        saveWaterState();
+        triggerWaterReminderAlert();
+      }
+
+      const breathSched = getNextTwoHourBreathSlot();
+      const nowMs = Date.now();
+      if (breathStats.snoozeUntilMs && nowMs >= breathStats.snoozeUntilMs) {
+        breathStats.snoozeUntilMs = 0;
+        saveBreathState();
+        triggerBreathReminder();
+      } else if (
+        breathConfig.remindersEnabled &&
+        breathSched.triggerKey &&
+        breathSched.isExactSlotMinute &&
+        breathStats.lastTriggeredSlot !== breathSched.triggerKey
+      ) {
+        breathStats.lastTriggeredSlot = breathSched.triggerKey;
+        saveBreathState();
+        triggerBreathReminder();
+      }
+
+      renderWater();
+      renderBreathingUI();
+    }
+
+    // Breathing Event Listeners
+    breathStartBtn.addEventListener('click', startBreathing);
+    breathPauseBtn.addEventListener('click', pauseBreathing);
+    breathResetBtn.addEventListener('click', resetBreathing);
+
+    [inhaleSecInput, holdSecInput, exhaleSecInput, cyclesInput].forEach((inp) => {
+      inp.addEventListener('change', () => {
+        breathConfig.inhale = Math.max(2, Math.min(10, Number(inhaleSecInput.value) || 4));
+        breathConfig.hold = Math.max(0, Math.min(10, Number(holdSecInput.value) || 2));
+        breathConfig.exhale = Math.max(2, Math.min(12, Number(exhaleSecInput.value) || 6));
+        breathConfig.cycles = Math.max(1, Math.min(20, Number(cyclesInput.value) || 5));
+        saveBreathState();
+        if (!breathSession.running) resetBreathing();
+      });
+    });
+
+    ambientSoundSelect.addEventListener('change', () => {
+      if (breathSession.running && !breathSession.paused) {
+        startAmbientSound(ambientSoundSelect.value);
+      }
+    });
+
+    breathSoundGuideChk.addEventListener('change', () => {
+      breathConfig.soundGuidance = breathSoundGuideChk.checked;
+      saveBreathState();
+    });
+
+    breathRemindersChk.addEventListener('change', () => {
+      breathConfig.remindersEnabled = breathRemindersChk.checked;
+      saveBreathState();
+      renderBreathingUI();
+    });
+
+    breathTextOnlyChk.addEventListener('change', () => {
+      breathConfig.textOnly = breathTextOnlyChk.checked;
+      saveBreathState();
+      renderBreathingUI();
+    });
+
+    breathStartFromReminderBtn.addEventListener('click', startBreathing);
+    breathSnoozeBtn.addEventListener('click', () => {
+      breathStats.snoozeUntilMs = Date.now() + 15 * 60 * 1000;
+      breathReminderBanner.classList.add('hidden');
+      saveBreathState();
+    });
+
+    testBreathReminderBtn.addEventListener('click', () => {
+      getAudioCtx();
+      triggerBreathReminder();
+    });
+
+    breathClearStatsBtn.addEventListener('click', () => {
+      const today = getTodayKey();
+      breathStats.history[today] = { sessions: 0, minutes: 0 };
+      breathReminderBanner.classList.add('hidden');
+      saveBreathState();
+      renderBreathingUI();
+    });
+
+    // =========================================================
+    // INITIALIZATION
+    // =========================================================
+    loadState();
+    loadWaterState();
+    loadBreathState();
+    updateScheduleBadge();
+    setInterval(updateScheduleBadge, 60000);
+    setInterval(checkAllRemindersTick, 30000);
+    render();
+    renderWater();
+    resetBreathing();
+  </script>
+</body>
+</html>
